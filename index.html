@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Договор публичной оферты</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 32px 24px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 32px 32px 28px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      border: 1px solid #e5e7eb;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #0f172a;
+    }
+
+    header p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .meta {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #4b5563;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .meta span {
+      padding: 2px 0;
+    }
+
+    .meta-label {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: #9ca3af;
+      margin-right: 6px;
+    }
+
+    .contract-block {
+      margin-top: 24px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 20px 20px 16px;
+      max-height: 380px;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.6;
+      background: #f9fafb;
+    }
+
+    .contract-block h2 {
+      margin-top: 0;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #111827;
+    }
+
+    .contract-section-title {
+      margin-top: 12px;
+      margin-bottom: 4px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .contract-block p {
+      margin: 4px 0;
+    }
+
+    .contract-note {
+      margin-top: 16px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #eff6ff;
+      border: 1px dashed #bfdbfe;
+      font-size: 12px;
+      color: #1d4ed8;
+    }
+
+    .signature {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        padding: 24px 18px 20px;
+      }
+
+      .signature {
+        grid-template-columns: 1fr;
+      }
+
+      .contract-block {
+        max-height: 300px;
+      }
+    }
+
+    .signature h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .signature p {
+      margin: 0 0 14px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .field input[type="text"],
+    .field input[type="tel"] {
+      width: 100%;
+      padding: 10px 11px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      background: #f9fafb;
+    }
+
+    .field input[type="text"]:focus,
+    .field input[type="tel"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
+      background: #ffffff;
+    }
+
+    .field small {
+      display: block;
+      margin-top: 3px;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 10px 0 4px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      margin-top: 2px;
+    }
+
+    .checkbox-row label {
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    .actions {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 12px 22px rgba(37, 99, 235, 0.4);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(37, 99, 235, 0.45);
+      filter: brightness(1.02);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.35);
+      filter: brightness(0.97);
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .status {
+      font-size: 12px;
+      margin-top: 8px;
+      min-height: 16px;
+    }
+
+    .status.error {
+      color: #b91c1c;
+    }
+
+    .status.success {
+      color: #15803d;
+    }
+
+    .signature-summary {
+      font-size: 13px;
+      color: #374151;
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px dashed #e5e7eb;
+    }
+
+    .signature-summary dt {
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .signature-summary dd {
+      margin: 0 0 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+      <header>
+        <h1>Договор публичной оферты</h1>
+        <p>на оказание информационно-риелторских услуг по аренде недвижимости</p>
+      </header>
+
+      <div class="meta">
+        <span><span class="meta-label">Город:</span> Бишкек</span>
+        <span><span class="meta-label">Год:</span> 2025</span>
+        <span><span class="meta-label">Сторона-исполнитель:</span> ИП (реквизиты вашей компании)</span>
+      </div>
+
+      <section class="contract-block" aria-label="Текст договора">
+        <h2>Текст договора</h2>
+
+        <p class="contract-section-title">1. Предмет договора</p>
+        <p>
+          Здесь разместите полный текст вашего договора публичной оферты.
+          Можно использовать структуру: предмет договора, права и обязанности сторон,
+          порядок оплаты, ответственность, прочие условия и т.д.
+        </p>
+
+        <p class="contract-section-title">2. Условия оплаты</p>
+        <p>
+          Опишите стоимость услуг, валюту, реквизиты для оплаты, порядок возврата средств
+          и момент, с которого услуга считается оказанной.
+        </p>
+
+        <p class="contract-section-title">3. Права и обязанности сторон</p>
+        <p>
+          Пропишите обязательства исполнителя и заказчика, ограничения ответственности,
+          порядок взаимодействия, ограничения по передаче информации третьим лицам.
+        </p>
+
+        <p class="contract-section-title">4. Ответственность и прочие условия</p>
+        <p>
+          Укажите порядок разрешения споров, применимое право, срок действия договора,
+          а также иные важные положения.
+        </p>
+
+        <div class="contract-note">
+          Это шаблонный текстовый блок. Скопируйте сюда ваш официальный договор,
+          согласованный с юристом. Сайт лишь фиксирует факт акцепта оферты.
+        </div>
+      </section>
+
+      <section class="signature" aria-label="Форма подписания договора">
+        <div>
+          <h3>Подписание онлайн</h3>
+          <p>
+            Для акцепта оферты заполните данные и подтвердите согласие с условиями договора.
+          </p>
+
+          <form id="agreement-form" novalidate>
+            <div class="field">
+              <label for="fullName">ФИО заказчика</label>
+              <input id="fullName" name="fullName" type="text" autocomplete="name" placeholder="Иванов Иван Иванович" required>
+            </div>
+
+            <div class="field">
+              <label for="phone">Контактный номер телефона</label>
+              <input id="phone" name="phone" type="tel" placeholder="+996 555 000 000" required>
+              <small>Укажите номер, по которому с вами можно связаться в мессенджере или по звонку.</small>
+            </div>
+
+            <div class="checkbox-row">
+              <input id="agree" name="agree" type="checkbox" required>
+              <label for="agree">
+                Я ознакомился(ась) с текстом договора и полностью согласен(на)
+                с его условиями. Подтверждаю, что оплата услуг будет произведена на указанные реквизиты.
+              </label>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn-primary">
+                Подписать договор
+              </button>
+              <span class="hint">Нажимая кнопку, вы подтверждаете акцепт публичной оферты.</span>
+            </div>
+
+            <div id="status" class="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <div>
+          <h3>Реквизиты и отметка о подписании</h3>
+          <p>После отправки формы здесь отобразится служебная информация о факте принятия оферты.</p>
+
+          <dl id="signature-summary" class="signature-summary" hidden>
+            <dt>ФИО заказчика:</dt>
+            <dd id="summary-name"></dd>
+
+            <dt>Телефон:</dt>
+            <dd id="summary-phone"></dd>
+
+            <dt>Дата и время акцепта:</dt>
+            <dd id="summary-datetime"></dd>
+
+            <dt>Статус:</dt>
+            <dd>Договор публичной оферты принят заказчиком путем заполнения формы на сайте.</dd>
+          </dl>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var form = document.getElementById("agreement-form");
+      var status = document.getElementById("status");
+      var summaryBlock = document.getElementById("signature-summary");
+      var summaryName = document.getElementById("summary-name");
+      var summaryPhone = document.getElementById("summary-phone");
+      var summaryDatetime = document.getElementById("summary-datetime");
+
+      function nowFormatted() {
+        var d = new Date();
+        return d.toLocaleString("ru-RU", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        status.textContent = "";
+        status.className = "status";
+
+        var fullName = form.fullName.value.trim();
+        var phone = form.phone.value.trim();
+        var agree = form.agree.checked;
+
+        if (!fullName || !phone || !agree) {
+          status.textContent = "Заполните все поля и подтвердите согласие с условиями договора.";
+          status.classList.add("error");
+          return;
+        }
+
+        // Здесь можно отправить данные на сервер через fetch/AJAX, если он есть.
+        // Сейчас просто отображаем локальное подтверждение.
+
+        summaryName.textContent = fullName;
+        summaryPhone.textContent = phone;
+        summaryDatetime.textContent = nowFormatted();
+        summaryBlock.hidden = false;
+
+        status.textContent = "Договор принят. Данные успешно зафиксированы в интерфейсе.";
+        status.classList.add("success");
+
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>
