@@ -245,7 +245,6 @@
   <div class="page">
     <div class="card">
       <div class="logo-wrap">
-        <!-- Положи файл логотипа рядом с index.html под именем logo.png -->
         <img src="logo.png" alt="Логотип HOME">
       </div>
 
@@ -422,7 +421,8 @@
 
   <script>
     (function () {
-      const API_URL = "https://homekg.deno.dev/sign-contract";
+      // относительный путь — работает на любом домене этого проекта
+      const API_URL = "/sign-contract";
 
       var form = document.getElementById("agreement-form");
       var status = document.getElementById("status");
