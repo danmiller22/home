@@ -104,7 +104,7 @@ async function handler(req: Request): Promise<Response> {
   }
 
   return await serveDir(req, {
-    fsRoot: "public",
+    fsRoot: ".",
     urlRoot: "",
     showDirListing: false,
     quiet: true,

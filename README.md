@@ -1,22 +1,20 @@
-# HOMEKG Contract
+# HOMEKG Contract v2
 
-Deno Deploy project: static page with public-offer contract + API that sends signed data to Telegram.
+Готовый проект для Deno Deploy:
 
-## Files
+- `main.ts` — HTTP-сервер Deno:
+  - обслуживает статику из корня (в том числе `index.html`)
+  - принимает `POST /sign-contract` и шлёт данные в Telegram
+- `index.html` — страница договора с формой
+- `logo.png` — логотип на странице
 
-- `main.ts` — Deno HTTP server:
-  - serves static files from `public/`
-  - handles `POST /sign-contract` and forwards data to Telegram
-- `public/index.html` — contract page and form
-- `public/logo.png` — logo used on the page
+## Быстрый деплой
 
-## Deploy steps (short)
-
-1. Создай новый репозиторий и залей туда содержимое этого архива.
-2. В Deno Deploy создай новый проект из этого репо. В качестве entrypoint укажи `main.ts`.
+1. Создай новый репозиторий и залей туда содержимое архива.
+2. В Deno Deploy создай новый проект из этого репозитория.
+   Entry point: `main.ts`.
 3. В настройках проекта добавь переменные окружения:
    - `TELEGRAM_BOT_TOKEN`
    - `TELEGRAM_CHAT_ID`
-4. Открой выданный домен:
-   - страница договора будет доступна по `/`
-   - форма шлёт запрос `POST /sign-contract`, данные придут в Telegram.
+4. Привяжи нужный домен (например, `homekg.deno.dev`) к этому проекту.
+5. Открой сайт: страница договора будет на `/`, форма шлёт данные на `POST /sign-contract`, бот получает ФИО, телефон и время.
