@@ -1,8 +1,9 @@
 // main.ts
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import { serveDir } from "https://deno.land/std@0.224.0/http/file_server.ts";
 
 const BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN");
-const CHAT_ID = Deno.env.get("TELEGRAM_CHAT_ID"); // твой ID или ID чата/группы
+const CHAT_ID = Deno.env.get("TELEGRAM_CHAT_ID"); // твой ID или ID группы
 
 if (!BOT_TOKEN || !CHAT_ID) {
   console.error("TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID не заданы в переменных окружения");
@@ -21,7 +22,7 @@ async function sendToTelegram(fullName: string, phone: string, acceptedAt: strin
   }
 
   const text =
-    `<b>Новый акцепт оферты HOME</b>\n\n` +
+    `<b>Новый договор HOME</b>\n\n` +
     `<b>ФИО:</b> ${fullName}\n` +
     `<b>Телефон:</b> ${phone}\n` +
     `<b>Дата/время (клиент):</b> ${acceptedAt}`;
@@ -44,17 +45,18 @@ async function sendToTelegram(fullName: string, phone: string, acceptedAt: strin
   }
 }
 
-serve(async (req: Request) => {
-  // CORS preflight
-  if (req.method === "OPTIONS") {
+async function handler(req: Request): Promise<Response> {
+  const url = new URL(req.url);
+
+  // CORS preflight для API
+  if (req.method === "OPTIONS" && url.pathname === "/sign-contract") {
     return new Response(null, {
       status: 204,
       headers: corsHeaders,
     });
   }
 
-  const url = new URL(req.url);
-
+  // API для приёма подписанного договора
   if (req.method === "POST" && url.pathname === "/sign-contract") {
     try {
       const data = await req.json() as {
@@ -104,8 +106,13 @@ serve(async (req: Request) => {
     }
   }
 
-  return new Response("Not found", {
-    status: 404,
-    headers: corsHeaders,
+  // Всё остальное — раздаём статические файлы из текущей папки
+  return await serveDir(req, {
+    fsRoot: ".",
+    urlRoot: "",
+    showDirListing: false,
+    quiet: true,
   });
-});
+}
+
+serve(handler);
