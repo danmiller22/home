@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Договор публичной оферты HOME</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 32px 24px;
+    }
+
+    .card {
+      background: #020617;
+      border-radius: 16px;
+      padding: 32px 32px 28px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+      border: 1px solid #1f2937;
+    }
+
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .logo-wrap img {
+      width: 72px;
+      height: 72px;
+      border-radius: 24px;
+      display: block;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #f9fafb;
+      text-align: center;
+    }
+
+    header p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    .contract-block {
+      margin-top: 24px;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      padding: 20px 20px 16px;
+      max-height: 380px;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.6;
+      background: #020617;
+    }
+
+    .contract-block h2 {
+      margin-top: 0;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #e5e7eb;
+    }
+
+    .contract-section-title {
+      margin-top: 12px;
+      margin-bottom: 4px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .contract-block p {
+      margin: 4px 0;
+      color: #d1d5db;
+    }
+
+    .signature {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #1f2937;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .card { padding: 24px 18px 20px; }
+      .signature { grid-template-columns: 1fr; }
+      .contract-block { max-height: 300px; }
+      header h1, header p { text-align: left; }
+      .logo-wrap { justify-content: flex-start; }
+    }
+
+    .signature h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #f9fafb;
+    }
+
+    .signature p {
+      margin: 0 0 14px;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    .field { margin-bottom: 14px; }
+
+    .field label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #d1d5db;
+    }
+
+    .field input[type="text"],
+    .field input[type="tel"] {
+      width: 100%;
+      padding: 10px 11px;
+      border-radius: 10px;
+      border: 1px solid #374151;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      background: #020617;
+      color: #e5e7eb;
+    }
+
+    .field input[type="text"]::placeholder,
+    .field input[type="tel"]::placeholder {
+      color: #6b7280;
+    }
+
+    .field input[type="text"]:focus,
+    .field input[type="tel"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
+      background: #020617;
+    }
+
+    .field small {
+      display: block;
+      margin-top: 3px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 10px 0 4px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      margin-top: 2px;
+      accent-color: #2563eb;
+    }
+
+    .checkbox-row label {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .actions {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 12px 22px rgba(37, 99, 235, 0.4);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(37, 99, 235, 0.45);
+      filter: brightness(1.02);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.35);
+      filter: brightness(0.97);
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .status {
+      font-size: 12px;
+      margin-top: 8px;
+      min-height: 16px;
+    }
+
+    .status.error { color: #f97373; }
+    .status.success { color: #4ade80; }
+
+    .signature-summary {
+      font-size: 13px;
+      color: #e5e7eb;
+      background: #020617;
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px dashed #374151;
+    }
+
+    .signature-summary dt {
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .signature-summary dd {
+      margin: 0 0 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+      <div class="logo-wrap">
+        <img src="logo.png" alt="Логотип HOME">
+      </div>
+
+      <header>
+        <h1>ДОГОВОР ПУБЛИЧНОЙ ОФЕРТЫ</h1>
+        <p>на оказание информационно-риелторских услуг по аренде недвижимости «HOME»</p>
+      </header>
+
+      <section class="contract-block" aria-label="Текст договора">
+        <h2>Текст договора</h2>
+
+        <p>
+          Настоящий Договор публичной оферты на оказание информационно-риелторских услуг по аренде недвижимости (далее – «Договор»)
+          является официальным публичным предложением Исполнителя, действующего на основании свидетельства о регистрации
+          (далее – «Исполнитель»), на заключение сделки для оказания информационно-риелторских услуг по аренде недвижимости.
+        </p>
+        <p>
+          Договор считается заключённым и вступает в силу с момента оплаты услуг Исполнителя Заказчиком.
+          Оплата подтверждает полное и безоговорочное принятие всех условий настоящего Договора.
+        </p>
+
+        <p class="contract-section-title">1. Предмет договора</p>
+        <p>
+          1.1. Исполнитель обязуется осуществлять поиск квартир по городу Бишкек через свои источники и включить Заказчика
+          в специальную группу в Telegram-приложении с базой данных жилой недвижимости (далее – «Объекты»)
+          после получения оплаты, а также направлять варианты Объектов в указанную группу.
+        </p>
+        <p>
+          1.2. Получая информацию от Исполнителя, Заказчик самостоятельно осматривает Объект и договаривается
+          с арендодателем (собственником или его представителем) напрямую.
+        </p>
+
+        <p class="contract-section-title">2. Условия оплаты</p>
+        <p>
+          2.1. Оплата производится в сомах КР на указанные реквизиты Исполнителя в момент принятия настоящего Договора Заказчиком.
+        </p>
+        <p>
+          2.2. Стоимость услуг составляет 1000 (одна тысяча) сом, единовременно, за предоставление бессрочного доступа
+          к группе в Telegram-приложении «HOME» без ограничения по сроку действия подписки
+          (до прекращения работы сервиса/группы или удаления Заказчика за нарушение условий Договора).
+        </p>
+        <p>
+          2.3. Услуга считается оказанной с момента предоставления доступа к группе в Telegram-приложении.
+        </p>
+        <p>
+          2.4. Оплаченная сумма не подлежит возврату, в том числе в случае, если Заказчик не воспользовался предложениями,
+          не заселился или прекратил пользоваться группой по собственной инициативе.
+        </p>
+
+        <p class="contract-section-title">3. Права и обязанности сторон</p>
+        <p>
+          3.1. Исполнитель обязуется проводить поиск Объектов по городу Бишкек через свои источники и направлять
+          найденные варианты в группу в Telegram-приложении.
+        </p>
+        <p>
+          3.2. Исполнитель вправе консультировать Заказчика по общим вопросам, связанным с Объектами, до заселения
+          (в пределах своей компетенции и без участия в переговорах и заключении договора аренды).
+        </p>
+        <p>
+          3.3. Заказчик обязуется оплатить услуги Исполнителя в соответствии с условиями настоящего Договора
+          и предоставить достоверные контактные данные.
+        </p>
+        <p>
+          3.4. Заказчик обязуется не передавать третьим лицам доступ к группе и/или полученную от Исполнителя информацию
+          об Объектах, не копировать и не распространять её каким-либо способом без согласия Исполнителя.
+        </p>
+        <p>
+          3.5. В случае распространения третьим лицам информации об Объектах, полученной через группу Telegram-приложения,
+          на Заказчика налагается штраф за неисполнение условий настоящего Договора в размере
+          10 000 (десять тысяч) сом.
+        </p>
+
+        <p class="contract-section-title">4. Ограничение ответственности</p>
+        <p>
+          4.1. Информация о недвижимости и объявления об Объектах предоставляются третьими лицами
+          (собственниками, их представителями и иными лицами) и могут быть получены как из закрытых, так и из открытых источников
+          (например, Лалафо и других аналогичных площадок).
+        </p>
+        <p>
+          4.2. Исполнитель не несёт ответственности за содержание, достоверность, актуальность, полноту, законность
+          и иные характеристики объявлений арендодателей, а также за соответствие Объекта фактическим условиям.
+        </p>
+        <p>
+          4.3. Все детали и условия аренды (стоимость, сроки, залог, порядок оплаты, наличие документов, состояние Объекта и т.п.)
+          Заказчик обязан самостоятельно уточнять напрямую у арендодателя до заключения договора аренды.
+        </p>
+        <p>
+          4.4. Исполнитель не гарантирует заключение сделки аренды, её успешность, а также не является стороной сделки
+          между Заказчиком и арендодателем.
+        </p>
+        <p>
+          4.5. Исполнитель не несёт ответственности за действия или бездействие арендодателей, изменение условий аренды,
+          отказ в аренде, недобросовестное поведение третьих лиц и иные последствия взаимоотношений между Заказчиком
+          и третьими лицами.
+        </p>
+
+        <p class="contract-section-title">5. Прочие положения</p>
+        <p>
+          5.1. Договор вступает в силу с момента оплаты услуг Исполнителя Заказчиком и действует на весь период предоставления
+          Заказчику доступа к группе в Telegram-приложении «HOME».
+        </p>
+        <p>
+          5.2. Любые дополнительные договорённости между Заказчиком и арендодателем заключаются без участия Исполнителя
+          и не создают для Исполнителя каких-либо обязанностей или ответственности.
+        </p>
+      </section>
+
+      <section class="signature" aria-label="Форма подписания договора">
+        <div>
+          <h3>Подписание онлайн</h3>
+          <p>
+            Для принятия условий Договора заполните данные и подтвердите согласие.
+          </p>
+
+          <form id="agreement-form" novalidate>
+            <div class="field">
+              <label for="fullName">ФИО заказчика</label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                autocomplete="name"
+                placeholder="Асанов Асан Асанович"
+                required
+              >
+            </div>
+
+            <div class="field">
+              <label for="phone">Контактный номер телефона</label>
+              <input id="phone" name="phone" type="tel" placeholder="+996 555 000 000" required>
+              <small>Укажите номер, по которому с вами можно связаться в мессенджере или по звонку.</small>
+            </div>
+
+            <div class="checkbox-row">
+              <input id="agree" name="agree" type="checkbox" required>
+              <label for="agree">
+                Я ознакомился(ась) с текстом Договора и полностью согласен(на) с его условиями.
+                Подтверждаю, что оплата услуг будет произведена на указанные реквизиты Исполнителя.
+              </label>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn-primary">
+                Подписать договор
+              </button>
+              <span class="hint">Нажимая кнопку, вы подтверждаете принятие условий Договора.</span>
+            </div>
+
+            <div id="status" class="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <div>
+          <h3>Отметка о подписании</h3>
+          <p>После отправки формы здесь отобразится служебная информация о факте принятия условий Договора.</p>
+
+          <dl id="signature-summary" class="signature-summary" hidden>
+            <dt>ФИО заказчика:</dt>
+            <dd id="summary-name"></dd>
+
+            <dt>Телефон:</dt>
+            <dd id="summary-phone"></dd>
+
+            <dt>Дата и время принятия:</dt>
+            <dd id="summary-datetime"></dd>
+
+            <dt>Статус:</dt>
+            <dd>Договор публичной оферты принят Заказчиком путем заполнения формы на сайте.</dd>
+          </dl>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const API_URL = "/sign-contract";
+
+      var form = document.getElementById("agreement-form");
+      var status = document.getElementById("status");
+      var summaryBlock = document.getElementById("signature-summary");
+      var summaryName = document.getElementById("summary-name");
+      var summaryPhone = document.getElementById("summary-phone");
+      var summaryDatetime = document.getElementById("summary-datetime");
+
+      function nowFormatted() {
+        var d = new Date();
+        return d.toLocaleString("ru-RU", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+      }
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        status.textContent = "";
+        status.className = "status";
+
+        var fullName = form.fullName.value.trim();
+        var phone = form.phone.value.trim();
+        var agree = form.agree.checked;
+
+        if (!fullName || !phone || !agree) {
+          status.textContent = "Заполните все поля и подтвердите согласие с условиями Договора.";
+          status.classList.add("error");
+          return;
+        }
+
+        var acceptedAt = nowFormatted();
+
+        summaryName.textContent = fullName;
+        summaryPhone.textContent = phone;
+        summaryDatetime.textContent = acceptedAt;
+        summaryBlock.hidden = false;
+
+        try {
+          var res = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              fullName: fullName,
+              phone: phone,
+              acceptedAt: acceptedAt
+            })
+          });
+
+          if (!res.ok) {
+            var text = await res.text();
+            console.error("Ошибка ответа сервера:", res.status, text);
+            status.textContent = "Ошибка сервера при фиксации договора. Попробуйте позже.";
+            status.classList.add("error");
+            return;
+          }
+
+          var json = {};
+          try {
+            json = await res.json();
+          } catch (_) {}
+
+          if (json.ok === false) {
+            status.textContent = "Сервис временно недоступен. Попробуйте позже.";
+            status.classList.add("error");
+            return;
+          }
+
+          status.textContent = "Договор принят. Данные успешно зафиксированы и отправлены Исполнителю.";
+          status.classList.add("success");
+
+          form.reset();
+        } catch (err) {
+          console.error("Ошибка запроса:", err);
+          status.textContent = "Не удалось отправить данные. Проверьте соединение или повторите позже.";
+          status.classList.add("error");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
