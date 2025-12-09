@@ -14,39 +14,65 @@ const corsHeaders: Record<string, string> = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-async function sendToTelegram(fullName: string, phone: string, acceptedAt: string) {
+async function sendToTelegram(
+  fullName: string,
+  phone: string,
+  acceptedAt: string,
+  receipt?: File,
+) {
   if (!BOT_TOKEN || !CHAT_ID) {
     console.error("Нет TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID");
     return;
   }
 
-  const text =
+  const caption =
     `<b>Новый договор HOME</b>\n\n` +
     `<b>ФИО:</b> ${fullName}\n` +
     `<b>Телефон:</b> ${phone}\n` +
     `<b>Дата/время (клиент):</b> ${acceptedAt}`;
 
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+  if (receipt) {
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`;
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: CHAT_ID,
-      text,
-      parse_mode: "HTML",
-    }),
-  });
+    const form = new FormData();
+    form.append("chat_id", CHAT_ID);
+    form.append("caption", caption);
+    form.append("parse_mode", "HTML");
+    form.append("document", receipt, `receipt-${Date.now()}`);
 
-  if (!res.ok) {
-    const body = await res.text();
-    console.error("Ошибка отправки в Telegram:", res.status, body);
+    const res = await fetch(url, {
+      method: "POST",
+      body: form,
+    });
+
+    if (!res.ok) {
+      const body = await res.text();
+      console.error("Ошибка отправки документа в Telegram:", res.status, body);
+    }
+  } else {
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: caption,
+        parse_mode: "HTML",
+      }),
+    });
+
+    if (!res.ok) {
+      const body = await res.text();
+      console.error("Ошибка отправки сообщения в Telegram:", res.status, body);
+    }
   }
 }
 
 async function handler(req: Request): Promise<Response> {
   const url = new URL(req.url);
 
+  // CORS preflight для /sign-contract
   if (req.method === "OPTIONS" && url.pathname === "/sign-contract") {
     return new Response(null, {
       status: 204,
@@ -54,19 +80,32 @@ async function handler(req: Request): Promise<Response> {
     });
   }
 
+  // Приём формы + файла
   if (req.method === "POST" && url.pathname === "/sign-contract") {
     try {
-      const data = await req.json() as {
-        fullName?: string;
-        phone?: string;
-        acceptedAt?: string;
-      };
+      const contentType = req.headers.get("content-type") ?? "";
 
-      const fullName = (data.fullName ?? "").trim();
-      const phone = (data.phone ?? "").trim();
-      const acceptedAt = (data.acceptedAt ?? "").trim();
+      if (!contentType.includes("multipart/form-data")) {
+        return new Response(
+          JSON.stringify({ ok: false, error: "Unsupported content type" }),
+          {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json",
+              ...corsHeaders,
+            },
+          },
+        );
+      }
 
-      if (!fullName || !phone || !acceptedAt) {
+      const formData = await req.formData();
+
+      const fullName = (formData.get("fullName")?.toString() ?? "").trim();
+      const phone = (formData.get("phone")?.toString() ?? "").trim();
+      const acceptedAt = (formData.get("acceptedAt")?.toString() ?? "").trim();
+      const receipt = formData.get("receipt");
+
+      if (!fullName || !phone || !acceptedAt || !(receipt instanceof File)) {
         return new Response(
           JSON.stringify({ ok: false, error: "Missing fields" }),
           {
@@ -79,7 +118,7 @@ async function handler(req: Request): Promise<Response> {
         );
       }
 
-      await sendToTelegram(fullName, phone, acceptedAt);
+      await sendToTelegram(fullName, phone, acceptedAt, receipt);
 
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
@@ -103,6 +142,7 @@ async function handler(req: Request): Promise<Response> {
     }
   }
 
+  // Статика из текущей директории (index.html и т.д.)
   return await serveDir(req, {
     fsRoot: ".",
     urlRoot: "",
