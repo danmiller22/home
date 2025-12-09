@@ -133,7 +133,8 @@
     }
 
     .field input[type="text"],
-    .field input[type="tel"] {
+    .field input[type="tel"],
+    .field input[type="file"] {
       width: 100%;
       padding: 10px 11px;
       border-radius: 10px;
@@ -151,7 +152,8 @@
     }
 
     .field input[type="text"]:focus,
-    .field input[type="tel"]:focus {
+    .field input[type="tel"]:focus,
+    .field input[type="file"]:focus {
       border-color: #2563eb;
       box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
       background: #020617;
@@ -390,7 +392,7 @@
         <div>
           <h3>Подписание онлайн</h3>
           <p>
-            Для принятия условий Договора заполните данные и подтвердите согласие.
+            Для принятия условий Договора заполните данные, прикрепите чек и подтвердите согласие.
           </p>
 
           <form id="agreement-form" novalidate>
@@ -412,6 +414,19 @@
               <small>Укажите номер, по которому с вами можно связаться в мессенджере или по звонку.</small>
             </div>
 
+            <!-- ЧЕК ОПЛАТЫ -->
+            <div class="field">
+              <label for="receipt">Чек об оплате услуги</label>
+              <input
+                id="receipt"
+                name="receipt"
+                type="file"
+                accept="image/*,application/pdf"
+                required
+              >
+              <small>Приложите скриншот или файл с подтверждением оплаты. Без чека договор не может быть подписан.</small>
+            </div>
+
             <div class="checkbox-row">
               <input id="agree" name="agree" type="checkbox" required>
               <label for="agree">
@@ -424,7 +439,7 @@
               <button type="submit" class="btn-primary">
                 Подписать договор
               </button>
-              <span class="hint">Нажимая кнопку, вы подтверждаете принятие условий Договора.</span>
+              <span class="hint">Нажимая кнопку, вы подтверждаете принятие условий Договора и отправку чека.</span>
             </div>
 
             <div id="status" class="status" aria-live="polite"></div>
@@ -483,6 +498,7 @@
         var fullName = form.fullName.value.trim();
         var phone = form.phone.value.trim();
         var agree = form.agree.checked;
+        var receiptInput = form.receipt;
 
         if (!fullName || !phone || !agree) {
           status.textContent = "Заполните все поля и подтвердите согласие с условиями Договора.";
@@ -490,6 +506,13 @@
           return;
         }
 
+        if (!receiptInput || !receiptInput.files || receiptInput.files.length === 0) {
+          status.textContent = "Приложите чек об оплате перед подписанием договора.";
+          status.classList.add("error");
+          return;
+        }
+
+        var receiptFile = receiptInput.files[0];
         var acceptedAt = nowFormatted();
 
         summaryName.textContent = fullName;
@@ -497,17 +520,16 @@
         summaryDatetime.textContent = acceptedAt;
         summaryBlock.hidden = false;
 
+        var formData = new FormData();
+        formData.append("fullName", fullName);
+        formData.append("phone", phone);
+        formData.append("acceptedAt", acceptedAt);
+        formData.append("receipt", receiptFile);
+
         try {
           var res = await fetch(API_URL, {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              fullName: fullName,
-              phone: phone,
-              acceptedAt: acceptedAt
-            })
+            body: formData
           });
 
           if (!res.ok) {
@@ -529,7 +551,7 @@
             return;
           }
 
-          status.textContent = "Договор принят. Данные успешно зафиксированы и отправлены Исполнителю.";
+          status.textContent = "Договор принят. Данные и чек отправлены Исполнителю.";
           status.classList.add("success");
 
           form.reset();
